@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ZERA Platform</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
+</head>
+<body class="light-theme">
+
+    <!-- Navigation Bar -->
+    <nav class="navbar">
+        <div class="nav-logo">
+            <a href="{{ url_for('main.homepage') }}">ZERA</a>
+        </div>
+
+        <ul class="nav-links">
+            <li><a href="{{ url_for('main.homepage') }}">Home</a></li>
+            <li><a href="{{ url_for('main.about') }}">About</a></li>
+            <li><a href="{{ url_for('auth.login') }}" class="btn-login">Login</a></li>
+            <li><a href="{{ url_for('auth.register') }}" class="btn-signup">Sign Up</a></li>
+        </ul>
+
+        <button id="theme-toggle">🌗</button>
+    </nav>
+
+    <!-- Hero Section (Now Centralized Here) -->
+    <!-- <div class="hero-section">
+        <div class="hero-content">
+            <h1>Empowering Voices, Amplifying Impact</h1>
+            <p>Connect with brands, share authentic reviews, and earn rewards for your insights.</p>
+
+            <div class="hero-actions">
+                <a href="{{ url_for('auth.register') }}" class="hero-button">Get Started</a>
+
+                <div class="search-bar">
+                    <input type="text" placeholder="What product are you looking for?">
+                    <button type="submit">🔍</button>
+                </div>
+            </div>
+
+            <div class="trending-tags">
+                <p>Popular Searches:</p>
+                <span class="tag">Electronics</span>
+                <span class="tag">Home Essentials</span>
+                <span class="tag">Tech Gadgets</span>
+                <span class="tag">Beauty Products</span>
+                <span class="tag">Health & Wellness</span>
+            </div>
+        </div>
+    </div> -->
+
+    <!-- Main Content Area -->
+    <div class="content">
+        {% block content %}{% endblock %}
+    </div>
+
+    <!-- Footer Section -->
+<footer class="footer">
+    <div class="footer-content">
+        <div class="footer-logo">
+            <h2>ZERA Platform</h2>
+            <p>Empowering voices, amplifying impact.</p>
+        </div>
+
+        <div class="footer-links">
+            <h4>Quick Links</h4>
+            <ul>
+                <li><a href="{{ url_for('main.homepage') }}">Home</a></li>
+                <li><a href="{{ url_for('main.about') }}">About</a></li>
+                <li><a href="{{ url_for('auth.login') }}">Login</a></li>
+                <li><a href="{{ url_for('auth.register') }}">Sign Up</a></li>
+            </ul>
+        </div>
+
+        <div class="footer-contact">
+            <h4>Contact Us</h4>
+            <p>Email: <a href="mailto:support@zera.com">support@zera.com</a></p>
+            <p>Phone: +250 788 536 570</p>
+        </div>
+    </div>
+
+    <div class="footer-bottom">
+        <p>&copy; 2025 ZERA Platform - All Rights Reserved</p>
+    </div>
+</footer>
+
+    <script src="{{ url_for('static', filename='js/theme-switcher.js') }}"></script>
+</body>
+</html>
