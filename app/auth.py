@@ -9,7 +9,7 @@ def login():
         email = request.form.get('email')
         password = request.form.get('password')
 
-        if email == "test@example.com" and password == "password":
+        if email == "test@zera.com" and password == "test123":
             flash("Login successful!", "success")
             return redirect(url_for('main.homepage'))
         else:
