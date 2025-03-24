@@ -420,6 +420,7 @@ ul {
     background-color: #3E4AB0;
 }
 
+/* === Login PAGE STYLES === */
 /* === AUTH PAGES (Login & Register) === */
 .auth-container {
     display: flex;
@@ -449,6 +450,135 @@ ul {
     color: #5E5E5E;
     margin-bottom: 20px;
 }
+
+.auth-form {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.auth-form label {
+    text-align: left;
+    font-weight: bold;
+}
+
+.auth-form input {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+}
+
+.auth-form button {
+    background-color: #5C67F2;
+    color: #fff;
+    border: none;
+    padding: 10px;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background 0.3s ease;
+}
+
+.auth-form button:hover {
+    background-color: #4A5ADB;
+}
+
+.flash-messages {
+    margin-bottom: 15px;
+    padding: 10px;
+    border-radius: 8px;
+}
+
+.flash-messages .error {
+    background-color: #FFD2D2;
+    color: #D8000C;
+}
+
+.flash-messages .success {
+    background-color: #DFF2BF;
+    color: #4F8A10;
+}
+
+.register-link {
+    margin-top: 15px;
+    font-size: 0.9rem;
+}
+
+/* === REGISTER PAGE STYLES === */
+.register-card {
+    background-color: #ffffff;
+    padding: 40px;
+    border-radius: 20px;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.08);
+    text-align: center;
+    width: 100%;
+    max-width: 450px;  /* Slightly wider than login for better spacing */
+}
+
+.register-card h2 {
+    font-size: 2.2rem;
+    margin-bottom: 15px;
+    color: #1E1E1E;
+}
+
+.register-card p {
+    color: #5E5E5E;
+    margin-bottom: 20px;
+}
+
+.register-form {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.register-form label {
+    text-align: left;
+    font-weight: bold;
+}
+
+.register-form input {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+}
+
+.register-form button {
+    background-color: #5C67F2;
+    color: #fff;
+    border: none;
+    padding: 10px;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background 0.3s ease;
+}
+
+.register-form button:hover {
+    background-color: #4A5ADB;
+}
+
+.register-link {
+    margin-top: 15px;
+    font-size: 0.9rem;
+}
+
+.flash-messages {
+    margin-bottom: 15px;
+    padding: 10px;
+    border-radius: 8px;
+}
+
+.flash-messages .error {
+    background-color: #FFD2D2;
+    color: #D8000C;
+}
+
+.flash-messages .success {
+    background-color: #DFF2BF;
+    color: #4F8A10;
+}
+
 
 /* === INPUT FIELDS === */
 .input-group {
