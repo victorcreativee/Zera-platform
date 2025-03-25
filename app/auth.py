@@ -64,7 +64,7 @@ def login():
 
         login_user(user)
         flash(f'Welcome back, {user.username}!', 'success')
-        return redirect(url_for('main.home'))
+        return redirect(url_for('main.profile'))
 
     return render_template('auth/login.html')
 
