@@ -22,4 +22,6 @@ class Review(db.Model):
     title = db.Column(db.String(200), nullable=False)
     content = db.Column(db.Text, nullable=False)
     created_at = db.Column(db.DateTime, default=datetime.utcnow)
+    likes = db.Column(db.Integer, default=0)  # New column for likes
+    views = db.Column(db.Integer, default=0)  # New column for views
     user_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
