@@ -1,10 +1,11 @@
 # app/auth.py
 
-from flask import Blueprint, render_template, request, redirect, url_for, flash
+from flask import Blueprint, render_template, request, redirect, url_for, flash, session
 from werkzeug.security import generate_password_hash, check_password_hash
 from flask_login import login_user, logout_user, login_required
-from .models import User
+from .models import User, Company
 from . import db
+
 
 auth = Blueprint('auth', __name__)
 
@@ -74,3 +75,47 @@ def logout():
     logout_user()
     flash('You have been logged out.', 'info')
     return redirect(url_for('main.home'))
+
+@auth.route('/register_company', methods=['GET', 'POST'])
+def register_company():
+    if request.method == 'POST':
+        name = request.form.get('name')
+        email = request.form.get('email')
+        password = request.form.get('password')
+        description = request.form.get('description')
+
+        existing = Company.query.filter_by(email=email).first()
+        if existing:
+            flash('Email already registered. Please log in.')
+            return redirect(url_for('auth.login_company'))
+
+        company = Company(name=name, email=email, description=description)
+        company.set_password(password)
+
+        db.session.add(company)
+        db.session.commit()
+
+        flash('Company registered successfully! Please log in.')
+        return redirect(url_for('auth.login_company'))
+
+    return render_template('auth/register_company.html')
+
+
+@auth.route('/login_company', methods=['GET', 'POST'])
+def login_company():
+    if request.method == 'POST':
+        email = request.form.get('email')
+        password = request.form.get('password')
+
+        company = Company.query.filter_by(email=email).first()
+        if not company or not company.check_password(password):
+            flash('Invalid email or password.')
+            return redirect(url_for('auth.login_company'))
+
+        session['company_id'] = company.id
+        session['company_name'] = company.name
+        flash('Logged in successfully.')
+        return redirect(url_for('company.company_dashboard'))
+
+
+    return render_template('auth/login_company.html')

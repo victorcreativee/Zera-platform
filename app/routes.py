@@ -2,7 +2,7 @@
 
 from flask import Blueprint, render_template, redirect, url_for, request, flash
 from flask_login import login_required, current_user
-from .models import Review
+from .models import Review, Product
 from . import db
 
 main = Blueprint('main', __name__)
@@ -17,6 +17,7 @@ def home():
 @main.route('/profile')
 @login_required
 def profile():
+    # This part assumes you have user-submitted reviews linked to current_user.
     user_reviews = Review.query.filter_by(user_id=current_user.id).all()
     return render_template('profile.html', reviews=user_reviews)
 
@@ -25,7 +26,7 @@ def profile():
 def about():
     return render_template('about.html')
 
-# Add Review Feature (NEW)
+# Optional: Add Review (if you're supporting registered users posting general reviews)
 @main.route('/add_review', methods=['GET', 'POST'])
 @login_required
 def add_review():
@@ -52,7 +53,6 @@ def add_review():
 def edit_review(review_id):
     review = Review.query.get_or_404(review_id)
 
-    # Restrict editing to the author only
     if review.user_id != current_user.id:
         flash("You are not authorized to edit this review.", "danger")
         return redirect(url_for('main.home'))
@@ -73,7 +73,6 @@ def edit_review(review_id):
 def delete_review(review_id):
     review = Review.query.get_or_404(review_id)
 
-    # Restrict deletion to the author only
     if review.user_id != current_user.id:
         flash("You are not authorized to delete this review.", "danger")
         return redirect(url_for('main.home'))
@@ -84,3 +83,29 @@ def delete_review(review_id):
     flash('Review deleted successfully!', 'success')
     return redirect(url_for('main.home'))
 
+# Public list of all products
+@main.route('/products')
+def all_products():
+    products = Product.query.order_by(Product.created_at.desc()).all()
+    return render_template('public_products.html', products=products)
+
+# Product Detail + Submit Review (no login required)
+@main.route('/product/<int:product_id>', methods=['GET', 'POST'])
+def product_detail(product_id):
+    product = Product.query.get_or_404(product_id)
+
+    if request.method == 'POST':
+        user_name = request.form.get('user_name')
+        content = request.form.get('content')
+
+        if user_name and content:
+            review = Review(
+                user_name=user_name,
+                content=content,
+                product=product
+            )
+            db.session.add(review)
+            db.session.commit()
+            return redirect(url_for('main.product_detail', product_id=product.id))
+
+    return render_template('product_detail.html', product=product)

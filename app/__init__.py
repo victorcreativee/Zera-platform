@@ -31,6 +31,8 @@ def create_app():
     # Initialize Flask-Migrate
     migrate = Migrate(app, db)
 
+    from .company import company_bp
+    app.register_blueprint(company_bp)
     # Register blueprints
     with app.app_context():
         from .auth import auth as auth_blueprint
@@ -38,6 +40,9 @@ def create_app():
 
         from .routes import main as main_blueprint
         app.register_blueprint(main_blueprint)
+
+        # from .company import company_bp
+        # app.register_blueprint(company_bp)
 
         from . import models
 
