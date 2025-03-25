@@ -1,29 +1,44 @@
 from flask import Flask
 from flask_sqlalchemy import SQLAlchemy
+from flask_bcrypt import Bcrypt
+from flask_login import LoginManager
 from flask_migrate import Migrate
-from flask import session
-
+import os
 
 db = SQLAlchemy()
+bcrypt = Bcrypt()
+login_manager = LoginManager()
+login_manager.login_view = 'auth.login'
+login_manager.login_message_category = 'info'
 
 def create_app():
-    app = Flask(__name__, 
-                template_folder='../templates', 
-                static_folder='../static')  # Ensure this is added
-    app.config['SECRET_KEY'] = 'supersecretkey'
-    app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///db.sqlite'
-    
-    app.config['SESSION_TYPE'] = 'filesystem'
-    app.config['SESSION_PERMANENT'] = False
+    app = Flask(
+        __name__,
+        instance_relative_config=True,
+        template_folder=os.path.join(os.path.dirname(os.path.abspath(__file__)), '../templates'),
+        static_folder=os.path.join(os.path.dirname(os.path.abspath(__file__)), '../static')
+    )
 
+    app.config['SECRET_KEY'] = 'your_secret_key_here'
+    app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///../instance/db.sqlite'
+    app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
+
+    # Initialize extensions
     db.init_app(app)
-    Migrate(app, db)
+    bcrypt.init_app(app)
+    login_manager.init_app(app)
 
-    # Import Blueprints
-    from .auth import auth
-    from .routes import main
+    # Initialize Flask-Migrate
+    migrate = Migrate(app, db)
 
-    app.register_blueprint(auth)
-    app.register_blueprint(main)
+    # Register blueprints
+    with app.app_context():
+        from .auth import auth as auth_blueprint
+        app.register_blueprint(auth_blueprint)
+
+        from .routes import main as main_blueprint
+        app.register_blueprint(main_blueprint)
+
+        from . import models
 
     return app

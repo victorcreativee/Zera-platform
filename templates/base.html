@@ -15,11 +15,11 @@
     <!-- Navigation Bar -->
     <nav class="navbar">
         <div class="nav-logo">
-            <a href="{{ url_for('main.homepage') }}">ZERA</a>
+            <a href="{{ url_for('main.home') }}">ZERA</a>
         </div>
 
         <ul class="nav-links">
-            <li><a href="{{ url_for('main.homepage') }}">Home</a></li>
+            <li><a href="{{ url_for('main.home') }}">Home</a></li>
             <li><a href="{{ url_for('main.about') }}">About</a></li>
             <li><a href="{{ url_for('auth.login') }}" class="btn-login">Login</a></li>
             <li><a href="{{ url_for('auth.register') }}" class="btn-signup">Sign Up</a></li>
@@ -70,7 +70,7 @@
         <div class="footer-links">
             <h4>Quick Links</h4>
             <ul>
-                <li><a href="{{ url_for('main.homepage') }}">Home</a></li>
+                <li><a href="{{ url_for('main.home') }}">Home</a></li>
                 <li><a href="{{ url_for('main.about') }}">About</a></li>
                 <li><a href="{{ url_for('auth.login') }}">Login</a></li>
                 <li><a href="{{ url_for('auth.register') }}">Sign Up</a></li>
