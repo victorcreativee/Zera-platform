@@ -119,3 +119,5 @@ def login_company():
 
 
     return render_template('auth/login_company.html')
+
+

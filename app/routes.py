@@ -5,6 +5,8 @@ from flask_login import login_required, current_user
 from .models import Review, Product
 from . import db
 
+
+
 main = Blueprint('main', __name__)
 
 # Homepage
@@ -17,9 +19,17 @@ def home():
 @main.route('/profile')
 @login_required
 def profile():
-    # This part assumes you have user-submitted reviews linked to current_user.
-    user_reviews = Review.query.filter_by(user_id=current_user.id).all()
-    return render_template('profile.html', reviews=user_reviews)
+    # current_user is guaranteed to be valid because of @login_required
+    reviews = Review.query.filter_by(user_id=current_user.id).all()
+    return render_template('profile.html', reviews=reviews)
+
+# User Dashboard
+@main.route('/dashboard')
+@login_required
+def user_dashboard():
+    # For now, show all products (you'll filter later by access)
+    products = Product.query.order_by(Product.created_at.desc()).all()
+    return render_template('user_dashboard.html', products=products)
 
 # About Page
 @main.route('/about')
@@ -95,17 +105,31 @@ def product_detail(product_id):
     product = Product.query.get_or_404(product_id)
 
     if request.method == 'POST':
-        user_name = request.form.get('user_name')
+        if not current_user.is_authenticated:
+            flash("You must be logged in to submit a review.", "warning")
+            return redirect(url_for('auth.login'))
+
+        title = request.form.get('title')
         content = request.form.get('content')
 
-        if user_name and content:
-            review = Review(
-                user_name=user_name,
-                content=content,
-                product=product
-            )
-            db.session.add(review)
-            db.session.commit()
+        if not content:
+            flash("Content is required.", "danger")
             return redirect(url_for('main.product_detail', product_id=product.id))
 
-    return render_template('product_detail.html', product=product)
+        review = Review(
+            title=title,
+            content=content,
+            product_id=product.id,
+            product=product,
+            user_name=current_user.username,
+            user_id=current_user.id
+        )
+
+        db.session.add(review)
+        db.session.commit()
+
+        flash('Review submitted successfully!', 'success')
+        return redirect(url_for('main.product_detail', product_id=product.id))
+
+    reviews = Review.query.filter_by(product_id=product.id).order_by(Review.created_at.desc()).all()
+    return render_template('product_detail.html', product=product, reviews=reviews)

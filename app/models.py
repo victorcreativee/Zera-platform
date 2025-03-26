@@ -23,14 +23,14 @@ class Review(db.Model):
     title = db.Column(db.String(150), nullable=True)
     content = db.Column(db.Text, nullable=False)
     created_at = db.Column(db.DateTime, default=datetime.utcnow)
+
     product_id = db.Column(db.Integer, db.ForeignKey('product.id'))
     product = db.relationship('Product', backref=db.backref('reviews', lazy=True))
 
-    likes = db.Column(db.Integer, default=0)  # New column for likes
-    views = db.Column(db.Integer, default=0)  # New column for views
+    likes = db.Column(db.Integer, default=0)
+    views = db.Column(db.Integer, default=0)
 
     user_name = db.Column(db.String(100), nullable=False)
-
     user_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=True)
 
 class Company(db.Model):

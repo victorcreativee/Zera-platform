@@ -891,3 +891,59 @@ ul {
     margin-top: 50px;
     margin-bottom: 50px;
 }
+
+/* === Profile user === */
+
+.profile-container {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 2rem;
+  }
+  
+  .nav-buttons {
+    margin-bottom: 1rem;
+  }
+  
+  .nav-buttons .btn {
+    margin-right: 1rem;
+    text-decoration: none;
+    padding: 0.5rem 1rem;
+    background-color: #444;
+    color: #fff;
+    border-radius: 5px;
+  }
+  
+  .review-list {
+    list-style: none;
+    padding: 0;
+  }
+  
+  .review-item {
+    margin-bottom: 1rem;
+    padding: 1rem;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+  }
+  
+  .actions a {
+    font-size: 0.9em;
+    margin-left: 0.5rem;
+  }
+  
+  .dashboard-container {
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 2rem;
+  }
+  
+  .product-card {
+    border: 1px solid #ddd;
+    padding: 1rem;
+    border-radius: 8px;
+    margin-bottom: 1rem;
+  }
+  
+  .product-card h4 {
+    margin-bottom: 0.5rem;
+  }
+  
