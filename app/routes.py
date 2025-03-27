@@ -10,10 +10,20 @@ from . import db
 main = Blueprint('main', __name__)
 
 # Homepage
-@main.route('/')
+@main.route('/home')
 def home():
     trending_reviews = Review.query.order_by(Review.created_at.desc()).limit(5).all()
     return render_template('home.html', reviews=trending_reviews)
+
+# Landing Page
+@main.route('/')
+def landing():
+    products = Product.query.all()
+    products = sorted(products, key=lambda p: len(p.reviews), reverse=True)
+    trending_products = products[:6]
+    for p in trending_products:
+        p.review_count = len(p.reviews)
+    return render_template('landing.html', trending_products=trending_products)
 
 # Profile Page
 @main.route('/profile')

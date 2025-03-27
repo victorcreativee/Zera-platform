@@ -9,6 +9,11 @@ from . import db
 
 auth = Blueprint('auth', __name__)
 
+@auth.route('/choose_role')
+def choose_role():
+    return render_template('auth/choose_role.html')
+
+
 @auth.route('/register', methods=['GET', 'POST'])
 def register():
     if request.method == 'POST':
