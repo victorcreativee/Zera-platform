@@ -33,7 +33,7 @@ def register():
         new_user = User(
             username=username,
             email=email,
-            password=generate_password_hash(password, method='sha256')
+            password_hash=generate_password_hash(password, method='sha256')
         )
         db.session.add(new_user)
         db.session.commit()
@@ -59,7 +59,7 @@ def login():
             flash('Email not found. Please register first.', 'error')
             return redirect(url_for('auth.login'))
 
-        if not check_password_hash(user.password, password):
+        if not check_password_hash(user.password_hash, password):
             flash('Incorrect password. Please try again.', 'error')
             return redirect(url_for('auth.login'))
 
