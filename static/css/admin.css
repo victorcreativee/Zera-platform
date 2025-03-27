@@ -1,0 +1,77 @@
+.admin-container {
+    max-width: 1000px;
+    margin: 0 auto;
+    padding: 2rem;
+    background: white;
+    border-radius: 8px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+  }
+  
+  .admin-title {
+    font-size: 24px;
+    font-weight: bold;
+    margin-bottom: 1rem;
+  }
+  
+  .admin-subtitle {
+    font-size: 18px;
+    font-weight: 600;
+    margin-bottom: 0.5rem;
+  }
+  
+  .table-wrapper {
+    overflow-x: auto;
+  }
+  
+  .admin-table {
+    width: 100%;
+    border-collapse: collapse;
+  }
+  
+  .admin-table th, .admin-table td {
+    padding: 0.75rem 1rem;
+    border-bottom: 1px solid #ddd;
+    text-align: left;
+  }
+  
+  .admin-table th {
+    background-color: #f5f5f5;
+    font-weight: 500;
+  }
+  
+  .approve-link {
+    color: green;
+    text-decoration: none;
+  }
+  
+  .approve-link:hover {
+    text-decoration: underline;
+  }
+  
+  .approved-status {
+    color: gray;
+  }
+  
+  .empty-msg {
+    text-align: center;
+    padding: 1rem;
+    color: #999;
+  }
+  
+  .manual-add-wrapper {
+    margin-top: 1.5rem;
+  }
+  
+  .add-company-btn {
+    display: inline-block;
+    background-color: #2563eb;
+    color: white;
+    padding: 0.5rem 1.25rem;
+    border-radius: 6px;
+    text-decoration: none;
+  }
+  
+  .add-company-btn:hover {
+    background-color: #1e40af;
+  }
+  

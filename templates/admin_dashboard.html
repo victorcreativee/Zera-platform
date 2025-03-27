@@ -1,31 +1,47 @@
 {% extends 'base.html' %}
 
 {% block content %}
-<h2>🛠️ Admin Dashboard</h2>
+<div class="admin-container">
+  <h2 class="admin-title">🛠️ Admin Dashboard</h2>
 
-<h3>Company Requests:</h3>
-<table>
-  <tr>
-    <th>Name</th>
-    <th>Email</th>
-    <th>Status</th>
-    <th>Action</th>
-  </tr>
-  {% for company in companies %}
-    <tr>
-      <td>{{ company.name }}</td>
-      <td>{{ company.email }}</td>
-      <td>{{ company.status }}</td>
-      <td>
-        {% if company.status == 'pending' %}
-          <a href="{{ url_for('main.approve_company', company_id=company.id) }}">✅ Approve</a>
+  <h3 class="admin-subtitle">Company Requests:</h3>
+  <div class="table-wrapper">
+    <table class="admin-table">
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>Email</th>
+          <th>Status</th>
+          <th>Action</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for company in companies %}
+        <tr>
+          <td>{{ company.name }}</td>
+          <td>{{ company.email }}</td>
+          <td class="capitalize">{{ company.status }}</td>
+          <td>
+            {% if company.status == 'pending' %}
+              <a href="{{ url_for('main.approve_company', company_id=company.id) }}" class="approve-link">✅ Approve</a>
+            {% else %}
+              <span class="approved-status">Approved</span>
+            {% endif %}
+          </td>
+        </tr>
         {% else %}
-          <span>Approved</span>
-        {% endif %}
-      </td>
-    </tr>
-  {% endfor %}
-</table>
+        <tr>
+          <td colspan="4" class="empty-msg">No company requests yet.</td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
 
-<a href="{{ url_for('main.add_company') }}">➕ Add Company Manually</a>
+  <div class="manual-add-wrapper">
+    <a href="{{ url_for('main.add_company') }}" class="add-company-btn">
+      ➕ Add Company Manually
+    </a>
+  </div>
+</div>
 {% endblock %}
