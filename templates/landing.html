@@ -1,3 +1,4 @@
+
 {% extends 'base.html' %}
 
 {% block styles %}
@@ -9,98 +10,65 @@
 <!-- Hero Section -->
 <section class="hero-section text-center">
   <div class="container">
-    <h1 class="hero-title">Discover Honest Product<br>Insights</h1>
-    <p class="hero-subtitle">Explore feedback from real users and help shape better products.</p>
-
-    <!-- Search Bar -->
-    <div class="search-bar mt-4">
-      <input type="text" placeholder="What product are you looking for?">
-      <button><span class="search-icon">🔍</span></button>
-    </div>
-
-    <!-- Tags -->
-    <div class="trending-tags mt-4">
-      <p class="trending-label">Trending searches:</p>
-      <span class="tag">Tech Gadgets</span>
-      <span class="tag">Home Essentials</span>
-      <span class="tag">Health</span>
-      <span class="tag">Fashion</span>
-      <span class="tag">Fitness</span>
-    </div>
-
-    <!-- CTA -->
-    <div class="mt-5">
-      <a href="{{ url_for('auth.choose_role') }}" class="btn get-started-btn">Get Started</a>
-      <p class="mt-2 text-muted">Sign up as a company or individual to start collecting or giving product feedback.</p>
-    </div>
+    <h1 class="hero-title">Discover Honest Product Insights</h1>
+    <p class="hero-subtitle">Empowering users to shape better products through real feedback.</p>
+    <a href="{{ url_for('auth.choose_role') }}" class="btn get-started-btn">Get Started</a>
   </div>
 </section>
 
-<!-- Why Choose ZERA Section -->
-<section class="features-section text-center">
-  <div class="container">
-    <h2 class="section-title mb-5">Why Choose ZERA Platform?</h2>
+<!-- Features Section -->
+<section class="features-section">
+  <div class="container text-center">
+    <h2 class="section-title">Why Choose ZERA?</h2>
     <div class="feature-grid">
-
-      <!-- Feature Card 1 -->
       <div class="feature-card">
         <img src="{{ url_for('static', filename='images/feature1.jpg') }}" alt="Authentic Reviews">
         <h5 class="feature-title">Authentic Reviews</h5>
-        <p class="feature-description">Share honest product feedback that helps brands improve and grow.</p>
+        <p class="feature-description">Real voices sharing honest experiences, helping brands grow.</p>
       </div>
-
-      <!-- Feature Card 2 -->
       <div class="feature-card">
-        <img src="{{ url_for('static', filename='images/feature2.jpg') }}" alt="Earn Rewards">
+        <img src="{{ url_for('static', filename='images/feature2.jpg') }}" alt="Reward System">
         <h5 class="feature-title">Earn Rewards</h5>
-        <p class="feature-description">Get rewarded for your insights and meaningful contributions.</p>
+        <p class="feature-description">Review and earn—simple, engaging, and rewarding.</p>
       </div>
-
-      <!-- Feature Card 3 -->
       <div class="feature-card">
-        <img src="{{ url_for('static', filename='images/feature3.jpg') }}" alt="Join Community">
-        <h5 class="feature-title">Join a Thriving Community</h5>
-        <p class="feature-description">Connect with like-minded individuals and expand your network.</p>
+        <img src="{{ url_for('static', filename='images/feature3.jpg') }}" alt="Community">
+        <h5 class="feature-title">Vibrant Community</h5>
+        <p class="feature-description">Connect with others shaping product experiences globally.</p>
       </div>
-
     </div>
   </div>
 </section>
 
+<!-- About Section -->
+<section class="about-section">
+  <div class="container text-center about-centered">
+    <h2 class="section-title">About ZERA</h2>
+    <p class="about-subtitle">Born from the need for transparency and inclusivity in product development.</p>
+    <p class="about-description">ZERA connects real people with brands to make real impact. We believe everyone’s voice matters in shaping products that serve the people better.</p>
+    <!-- <img src="{{ url_for('static', filename='images/about_zera.jpg') }}" class="about-img-centered" alt="About ZERA"> -->
+  </div>
+</section>
 
-<!-- About ZERA Section (Centered Layout) -->
-<section class="about-section text-center">
-    <div class="container about-centered animate-fade">
-      <h2 class="section-title">About <strong>ZERA</strong></h2>
-      <p class="about-subtitle">ZERA is a modern product feedback platform connecting companies with authentic user reviews.</p>
-      <p class="about-description">Our mission is to amplify user voices, help companies improve, and create a more transparent product landscape.</p>
-  
-      <div class="about-image-centered">
-        <img src="/static/images/about_zera.jpg" alt="About ZERA" class="about-img-centered">
-      </div>
-    </div>
-  </section>
-  
-
-<!-- Trending Products -->
+<!-- Trending Products Section -->
 <section class="trending-products py-5">
-    <div class="container">
-      <h2 class="section-title text-center mb-4">Trending Products</h2>
-      <div class="row">
-        {% for product in trending_products %}
-        <div class="col-md-4">
-          <div class="card product-card mb-4 shadow-sm">
-            <img src="{{ product.image_url or '/static/images/default.jpg' }}" class="product-img mb-3" alt="{{ product.name }}">
-            <div class="card-body">
-              <h5 class="card-title">{{ product.name }}</h5>
-              <p class="card-text">{{ product.description[:100] }}...</p>
-              <p class="card-meta"><strong>{{ product.review_count }} reviews</strong></p>
-              <a href="{{ url_for('main.product_detail', product_id=product.id) }}" class="btn btn-outline-primary mt-2">View Details</a>
-            </div>
+  <div class="container">
+    <h2 class="section-title text-center mb-4">Trending Products</h2>
+    <div class="row">
+      {% for product in trending_products %}
+      <div class="col-md-4">
+        <div class="card product-card mb-4 shadow-sm">
+          <img src="{{ product.image_url or '/static/images/default.jpg' }}" class="product-img mb-3" alt="{{ product.name }}">
+          <div class="card-body">
+            <h5 class="card-title">{{ product.name }}</h5>
+            <p class="card-text">{{ product.description[:100] }}...</p>
+            <p class="card-meta"><strong>{{ product.review_count }} reviews</strong></p>
+            <a href="{{ url_for('main.product_detail', product_id=product.id) }}" class="btn btn-outline-primary mt-2">View Details</a>
           </div>
         </div>
-        {% endfor %}
       </div>
+      {% endfor %}
     </div>
-  </section>
+  </div>
+</section>
 {% endblock %}
