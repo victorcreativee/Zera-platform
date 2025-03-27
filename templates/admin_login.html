@@ -1,5 +1,15 @@
 {% extends 'base.html' %}
 
+{% with messages = get_flashed_messages(with_categories=true) %}
+  {% if messages %}
+    <ul>
+      {% for category, message in messages %}
+        <li class="{{ category }}">{{ message }}</li>
+      {% endfor %}
+    </ul>
+  {% endif %}
+{% endwith %}
+
 {% block content %}
 <div class="form-container">
   <h2>🔐 Admin Login</h2>

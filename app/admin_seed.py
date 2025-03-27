@@ -15,8 +15,7 @@ def create_admin(app):
                 email=email,
                 is_admin=True
             )
-            admin.set_password(password)  # ✅ use method, not field
-
+            admin.set_password(password)  # Use method to set password
             db.session.add(admin)
             db.session.commit()
             print("✅ Admin created successfully.")

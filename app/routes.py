@@ -1,8 +1,9 @@
 # app/routes.py
 
-from flask import Blueprint, render_template, redirect, url_for, request, flash
+from flask import Blueprint, render_template, redirect, url_for, request, flash, session
 from flask_login import login_required, current_user, login_user
 from .models import Review, Product, Company, User
+from werkzeug.security import check_password_hash
 from . import db
 from datetime import datetime
 
@@ -154,16 +155,6 @@ def product_reviews(product_id):
     reviews = Review.query.filter_by(product_id=product_id).all()  # Fetch reviews for the product
     return render_template('product_reviews.html', product=product, reviews=reviews)
 
-# Admin dashboard
-@main.route('/admin/dashboard')
-@login_required
-def admin_dashboard():
-    if not current_user.is_admin:
-        flash("Unauthorized access", "danger")
-        return redirect(url_for('main.home'))
-
-    companies = Company.query.order_by(Company.created_at.desc()).all()
-    return render_template('admin_dashboard.html', companies=companies)
 
 @main.route('/admin/approve_company/<int:company_id>')
 @login_required
@@ -230,10 +221,53 @@ def admin_login():
 
     return render_template('admin_login.html')
 
+# Admin dashboard
+@main.route('/admin/dashboard')
+@login_required
+def admin_dashboard():
+    if not current_user.is_admin:
+        flash("Unauthorized access", "danger")
+        return redirect(url_for('main.home'))
+
+    companies = Company.query.order_by(Company.created_at.desc()).all()
+    return render_template('admin_dashboard.html', companies=companies)
+
 @main.route('/add-company', methods=['GET', 'POST'])
 @login_required
 def add_company():
     if not current_user.is_admin:
-        abort(403)
-    # Logic for adding a company (e.g. form)
+        flash("Unauthorized access", "danger")
+        return redirect(url_for('main.home'))
+
+    if request.method == 'POST':
+        name = request.form.get('name')
+        email = request.form.get('email')
+        password = request.form.get('password')
+        description = request.form.get('description')
+
+        # Basic validation
+        if not name or not email or not password:
+            flash("Name, Email, and Password are required.", "danger")
+            return redirect(url_for('main.add_company'))
+
+        # Check if the company already exists
+        existing_company = Company.query.filter_by(email=email).first()
+        if existing_company:
+            flash("Company with this email already exists.", "warning")
+            return redirect(url_for('main.add_company'))
+
+        # Create the new company
+        new_company = Company(
+            name=name,
+            email=email,
+            description=description
+        )
+        new_company.set_password(password)  # Set password hash
+
+        db.session.add(new_company)
+        db.session.commit()
+
+        flash(f"Company {name} added successfully! Awaiting admin approval.", "success")
+        return redirect(url_for('main.admin_dashboard'))
+
     return render_template('add_company.html')

@@ -3,6 +3,7 @@ from flask_sqlalchemy import SQLAlchemy
 from flask_bcrypt import Bcrypt
 from flask_login import LoginManager
 from flask_migrate import Migrate
+from werkzeug.security import generate_password_hash
 import os
 
 db = SQLAlchemy()
@@ -47,8 +48,8 @@ def create_app():
 
         # from .company import company_bp
         # app.register_blueprint(company_bp)
-        # from .admin_seed import create_admin
-        # create_admin(app)
+        from .admin_seed import create_admin
+        create_admin(app)
         
         from . import models
 
