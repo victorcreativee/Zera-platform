@@ -1,0 +1,15 @@
+{% extends 'base.html' %}
+
+{% block content %}
+  <section class="choose-role-section text-center">
+    <div class="container">
+      <h2 class="section-title">Choose Your Role</h2>
+      <p>Select whether you want to sign up as an individual or a company.</p>
+
+      <div class="role-options">
+        <a href="{{ url_for('auth.register') }}" class="btn role-btn">Individual</a>
+        <a href="{{ url_for('auth.register_company') }}" class="btn role-btn">Company</a>
+      </div>
+    </div>
+  </section>
+{% endblock %}

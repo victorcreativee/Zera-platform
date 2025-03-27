@@ -9,9 +9,11 @@ from . import db
 
 auth = Blueprint('auth', __name__)
 
-@auth.route('/choose_role')
+@auth.route('/choose_role', methods=['GET', 'POST'])
 def choose_role():
-    return render_template('auth/choose_role.html')
+    # This route will display a form to choose whether the user is a company or an individual.
+    return render_template('choose_role.html')
+
 
 
 @auth.route('/register', methods=['GET', 'POST'])
