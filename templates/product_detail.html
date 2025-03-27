@@ -1,33 +1,41 @@
 {% extends 'base.html' %}
 
 {% block content %}
-<div class="product-detail">
-  <h2>{{ product.name }}</h2>
-  <p>{{ product.description }}</p>
+<div class="product-detail-card">
+  <!-- Product Details Card -->
+  <div class="product-details">
+    <h2>{{ product.title }}</h2>
+    <p class="product-description">{{ product.description }}</p>
 
-  {% if current_user.is_authenticated %}
-    <form method="POST">
-      <input type="text" name="title" placeholder="Review Title (optional)">
-      <textarea name="content" placeholder="Write your review..." required></textarea>
-      <button type="submit">Submit Review</button>
-    </form>
-  {% else %}
-    <p><a href="{{ url_for('auth.login') }}">Log in</a> to submit a review.</p>
-  {% endif %}
+    {% if product.product_type == 'Digital' and product.demo_link %}
+        <p><strong>Demo:</strong> <a href="{{ product.demo_link }}" target="_blank">View Demo</a></p>
+    {% endif %}
 
-  <h3>Reviews:</h3>
-  {% if reviews %}
-    <ul>
-      {% for review in reviews %}
-        <li>
-          <strong>{{ review.title or "Untitled" }}</strong><br>
-          <em>By {{ review.user_name }}</em><br>
-          {{ review.content }}
-        </li>
-      {% endfor %}
-    </ul>
-  {% else %}
-    <p>No reviews yet for this product.</p>
-  {% endif %}
+    <div class="product-reviews">
+        <p><strong>Reviews:</strong> 
+            {% if reviews %}
+                <span>{{ reviews|length }} reviews</span> | 
+                <a href="{{ url_for('main.product_reviews', product_id=product.id) }}">See Reviewers</a>
+            {% else %}
+                <span>No reviews yet for this product.</span>
+            {% endif %}
+        </p>
+    </div>
+</div>
+
+    </div>
+
+    <!-- Add Review Form Section -->
+    <div class="add-review-section">
+        {% if current_user.is_authenticated %}
+            <form method="POST" class="review-form">
+                <input type="text" name="title" placeholder="Review Title (optional)" class="input-field">
+                <textarea name="content" placeholder="Write your review..." required class="input-field"></textarea>
+                <button type="submit" class="submit-button">Submit Review</button>
+            </form>
+        {% else %}
+            <p><a href="{{ url_for('auth.login') }}">Log in</a> to submit a review.</p>
+        {% endif %}
+    </div>
 </div>
 {% endblock %}

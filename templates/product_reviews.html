@@ -1,0 +1,22 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="product-reviews-page">
+    <h2>{{ product.title }} - Reviews</h2>
+
+    {% if reviews %}
+        <div class="reviews-container">
+            {% for review in reviews %}
+                <div class="review-card">
+                    <h4>{{ review.title or "Untitled" }}</h4>
+                    <p>{{ review.content }}</p>
+                    <p><strong>Reviewed by:</strong> {{ review.user_name }}</p>
+                    <p><strong>Posted on:</strong> {{ review.created_at }}</p>
+                </div>
+            {% endfor %}
+        </div>
+    {% else %}
+        <p>No reviews yet for this product.</p>
+    {% endif %}
+</div>
+{% endblock %}

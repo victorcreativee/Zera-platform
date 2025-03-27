@@ -4,6 +4,7 @@ from flask import Blueprint, render_template, redirect, url_for, request, flash
 from flask_login import login_required, current_user, login_user
 from .models import Review, Product, Company, User
 from . import db
+from datetime import datetime
 
 
 
@@ -47,26 +48,6 @@ def user_dashboard():
 def about():
     return render_template('about.html')
 
-# Optional: Add Review (if you're supporting registered users posting general reviews)
-@main.route('/add_review', methods=['GET', 'POST'])
-@login_required
-def add_review():
-    if request.method == 'POST':
-        title = request.form.get('title')
-        content = request.form.get('content')
-
-        if not title or not content:
-            flash('Title and content are required.', 'danger')
-            return redirect(url_for('main.add_review'))
-
-        new_review = Review(title=title, content=content, author=current_user)
-        db.session.add(new_review)
-        db.session.commit()
-
-        flash('Review added successfully!', 'success')
-        return redirect(url_for('main.home'))
-
-    return render_template('add_review.html')
 
 # Edit Review
 @main.route('/edit_review/<int:review_id>', methods=['GET', 'POST'])
@@ -110,30 +91,51 @@ def all_products():
     products = Product.query.order_by(Product.created_at.desc()).all()
     return render_template('public_products.html', products=products)
 
-# Product Detail + Submit Review (no login required)
-@main.route('/product/<int:product_id>', methods=['GET', 'POST'])
-def product_detail(product_id):
+# Route to add a review
+@main.route('/product/<int:product_id>/review', methods=['GET', 'POST'])
+@login_required
+def add_review(product_id):
     product = Product.query.get_or_404(product_id)
 
     if request.method == 'POST':
-        if not current_user.is_authenticated:
-            flash("You must be logged in to submit a review.", "warning")
-            return redirect(url_for('auth.login'))
+        title = request.form['title']
+        content = request.form['content']
 
+        new_review = Review(
+            title=title,
+            content=content,
+            product_id=product.id,
+            user_id=current_user.id
+        )
+
+        db.session.add(new_review)
+        db.session.commit()
+
+        flash('Your review has been added!', 'success')
+        return redirect(url_for('main.product_detail', product_id=product.id))
+
+    return render_template('add_review.html', product=product)
+    
+# Route to view product details
+@main.route('/product/<int:product_id>', methods=['GET', 'POST'])
+def product_detail(product_id):
+    product = Product.query.get(product_id)
+    reviews = Review.query.filter_by(product_id=product_id).all()
+
+    if request.method == 'POST':
         title = request.form.get('title')
         content = request.form.get('content')
 
-        if not content:
-            flash("Content is required.", "danger")
-            return redirect(url_for('main.product_detail', product_id=product.id))
+        # Ensure user_name is taken from the authenticated user
+        user_name = current_user.username if current_user.is_authenticated else 'Anonymous'
 
         review = Review(
             title=title,
             content=content,
             product_id=product.id,
-            product=product,
-            user_name=current_user.username,
-            user_id=current_user.id
+            user_name=user_name,  # Set user_name here
+            user_id=current_user.id if current_user.is_authenticated else None,
+            created_at=datetime.now()
         )
 
         db.session.add(review)
@@ -142,9 +144,17 @@ def product_detail(product_id):
         flash('Review submitted successfully!', 'success')
         return redirect(url_for('main.product_detail', product_id=product.id))
 
-    reviews = Review.query.filter_by(product_id=product.id).order_by(Review.created_at.desc()).all()
     return render_template('product_detail.html', product=product, reviews=reviews)
 
+
+
+@main.route('/product/<int:product_id>/reviews')
+def product_reviews(product_id):
+    product = Product.query.get_or_404(product_id)
+    reviews = Review.query.filter_by(product_id=product_id).all()  # Fetch reviews for the product
+    return render_template('product_reviews.html', product=product, reviews=reviews)
+
+# Admin dashboard
 @main.route('/admin/dashboard')
 @login_required
 def admin_dashboard():

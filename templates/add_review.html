@@ -1,22 +1,15 @@
-{% extends "base.html" %}
+{% extends 'base.html' %}
 
 {% block content %}
-<div class="container">
-    <h1 class="text-center my-4">Add a New Review</h1>
+<div class="add-review-page">
+    <h2 class="page-title">Write a Review for {{ product.title }}</h2>
 
-    <form method="POST" action="{{ url_for('main.add_review') }}" class="needs-validation" novalidate>
-        <div class="mb-3">
-            <label for="title" class="form-label">Review Title</label>
-            <input type="text" name="title" class="form-control" placeholder="Enter review title" required>
-        </div>
-
-        <div class="mb-3">
-            <label for="content" class="form-label">Review Content</label>
-            <textarea name="content" class="form-control" rows="5" placeholder="Write your review..." required></textarea>
-        </div>
-
-        <button type="submit" class="btn btn-primary">Submit Review</button>
-        <a href="{{ url_for('main.home') }}" class="btn btn-secondary">Cancel</a>
+    <form method="POST" class="review-form">
+        <input type="text" name="title" placeholder="Review Title (optional)" class="input-field">
+        <textarea name="content" placeholder="Write your review..." required class="input-field"></textarea>
+        <button type="submit" class="submit-button">Submit Review</button>
     </form>
+
+    <p><a href="{{ url_for('main.product_detail', product_id=product.id) }}" class="back-link">Back to Product Details</a></p>
 </div>
 {% endblock %}

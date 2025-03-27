@@ -3,7 +3,10 @@
 from . import db, login_manager
 from flask_login import UserMixin
 from datetime import datetime
+from flask_wtf import FlaskForm
 from werkzeug.security import generate_password_hash, check_password_hash
+from wtforms import StringField, TextAreaField, SubmitField, SelectField
+from wtforms.validators import DataRequired, Length
 
 @login_manager.user_loader
 def load_user(user_id):
@@ -68,3 +71,13 @@ class Product(db.Model):
     company_id = db.Column(db.Integer, db.ForeignKey('company.id'))
 
     company = db.relationship('Company', backref=db.backref('products', lazy=True))
+
+    product_type = db.Column(db.String(50), default='Physical', nullable=False)  # 'Physical' or 'Digital'
+    demo_link = db.Column(db.String(255), nullable=True)  # URL for demo, only relevant for digital products
+
+class ProductForm(FlaskForm):
+    title = StringField('Product Title', validators=[DataRequired(), Length(max=150)])
+    description = TextAreaField('Product Description', validators=[DataRequired()])
+    product_type = SelectField('Product Type', choices=[('Physical', 'Physical'), ('Digital', 'Digital')], default='Physical')
+    demo_link = StringField('Demo Link (for Digital Products)', validators=[Length(max=255)])
+    submit = SubmitField('Add Product')

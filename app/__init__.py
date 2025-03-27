@@ -47,8 +47,8 @@ def create_app():
 
         # from .company import company_bp
         # app.register_blueprint(company_bp)
-        from .admin_seed import create_admin
-        create_admin(app)
+        # from .admin_seed import create_admin
+        # create_admin(app)
         
         from . import models
 

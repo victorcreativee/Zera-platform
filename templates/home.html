@@ -3,30 +3,30 @@
 {% block content %}
 
 <!-- Hero Section -->
-<div class="hero-section">
+<!-- <div class="hero-section">
     <div class="hero-content">
         <h1>Discover Honest Product Insights</h1>
         <p>Explore authentic reviews from real users — empowering you to make informed decisions.</p>
 
-        <!-- Search Bar -->
-        <div class="search-container">
+        <!- Search Bar -->
+        <!-- <div class="search-container">
             <input type="text" placeholder="What product are you looking for?">
             <button type="submit">
                 <span class="search-icon">🔍</span>
             </button>
-        </div>
+        </div> -->
 
         <!-- Trending Tags -->
-        <div class="trending-tags">
+        <!-- <div class="trending-tags">
             <p>Popular Searches:</p>
             <span class="tag">Tech Products</span>
             <span class="tag">Software Products</span>
             <span class="tag">Digital Products</span>
-            <span class="tag">Health and Fitness</span>
+            <span class="tag">Health and Fitness</span> -->
             <!-- <span class="tag">Self Improvement products</span> -->
-        </div>
+        <!-- </div>
     </div>
-</div>
+</div> --> 
 
 
 <!-- Get Started Section
@@ -141,8 +141,8 @@
         
         
     </div>
-
-    {% if not current_user.is_authenticated %}
+<!-- 
+{% if not current_user.is_authenticated %}
 <div class="login-cta text-center my-4">
     <h3>Sign Up or Login to Access Full Reviews</h3>
     <a href="{{ url_for('auth.login') }}" class="btn btn-primary">Login</a>
@@ -156,7 +156,7 @@
     <a href="{{ url_for('auth.login') }}" class="btn btn-primary">Login</a>
     <a href="{{ url_for('auth.register') }}" class="btn btn-success">Sign Up</a>
 </div>
-{% endif %}
+{% endif %} -->
 
 
 </section>
