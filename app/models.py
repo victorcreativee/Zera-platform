@@ -13,10 +13,19 @@ class User(db.Model, UserMixin):
     id = db.Column(db.Integer, primary_key=True)
     username = db.Column(db.String(150), unique=True, nullable=False)
     email = db.Column(db.String(150), unique=True, nullable=False)
-    password = db.Column(db.String(256), nullable=False)
+    password_hash = db.Column(db.String(256), nullable=False)  # ✅ Changed from `password` to `password_hash`
     created_at = db.Column(db.DateTime, default=datetime.utcnow)
     bio = db.Column(db.Text, nullable=True)
     reviews = db.relationship('Review', backref='author', lazy=True)
+    is_admin = db.Column(db.Boolean, default=False)
+
+    # ✅ Password setter
+    def set_password(self, password):
+        self.password_hash = generate_password_hash(password)
+
+    # ✅ Password checker
+    def check_password(self, password):
+        return check_password_hash(self.password_hash, password)
 
 class Review(db.Model):
     id = db.Column(db.Integer, primary_key=True)
@@ -35,10 +44,14 @@ class Review(db.Model):
 
 class Company(db.Model):
     id = db.Column(db.Integer, primary_key=True)
+    
     name = db.Column(db.String(150), nullable=False)
     email = db.Column(db.String(150), unique=True, nullable=False)
     password_hash = db.Column(db.String(200), nullable=False)
     description = db.Column(db.Text)
+
+    status = db.Column(db.String(20), default='pending')  # 'pending' or 'approved'
+    created_at = db.Column(db.DateTime, default=datetime.utcnow)
 
     def set_password(self, password):
         self.password_hash = generate_password_hash(password)

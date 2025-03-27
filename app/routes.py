@@ -1,8 +1,8 @@
 # app/routes.py
 
 from flask import Blueprint, render_template, redirect, url_for, request, flash
-from flask_login import login_required, current_user
-from .models import Review, Product
+from flask_login import login_required, current_user, login_user
+from .models import Review, Product, Company, User
 from . import db
 
 
@@ -21,7 +21,8 @@ def home():
 def profile():
     # current_user is guaranteed to be valid because of @login_required
     reviews = Review.query.filter_by(user_id=current_user.id).all()
-    return render_template('profile.html', reviews=reviews)
+    review_count = len(reviews)
+    return render_template('profile.html', reviews=reviews, review_count=review_count)
 
 # User Dashboard
 @main.route('/dashboard')
@@ -133,3 +134,86 @@ def product_detail(product_id):
 
     reviews = Review.query.filter_by(product_id=product.id).order_by(Review.created_at.desc()).all()
     return render_template('product_detail.html', product=product, reviews=reviews)
+
+@main.route('/admin/dashboard')
+@login_required
+def admin_dashboard():
+    if not current_user.is_admin:
+        flash("Unauthorized access", "danger")
+        return redirect(url_for('main.home'))
+
+    companies = Company.query.order_by(Company.created_at.desc()).all()
+    return render_template('admin_dashboard.html', companies=companies)
+
+@main.route('/admin/approve_company/<int:company_id>')
+@login_required
+def approve_company(company_id):
+    if not current_user.is_admin:
+        flash("Unauthorized", "danger")
+        return redirect(url_for('main.home'))
+
+    company = Company.query.get_or_404(company_id)
+    company.status = 'approved'
+    db.session.commit()
+    flash(f"{company.name} approved!", "success")
+    return redirect(url_for('main.admin_dashboard'))
+
+@main.route('/company/signup', methods=['GET', 'POST'])
+def company_signup():
+    if request.method == 'POST':
+        name = request.form.get('name')
+        email = request.form.get('email')
+        password = request.form.get('password')
+        description = request.form.get('description')
+
+        if not name or not email or not password:
+            flash("Name, Email, and Password are required.", "danger")
+            return redirect(url_for('main.company_signup'))
+
+        existing = Company.query.filter_by(email=email).first()
+        if existing:
+            flash("Email already registered.", "warning")
+            return redirect(url_for('main.company_signup'))
+
+        new_company = Company(
+            name=name,
+            email=email,
+            description=description
+        )
+        new_company.set_password(password)
+        db.session.add(new_company)
+        db.session.commit()
+
+        flash("Signup successful! Awaiting admin approval.", "success")
+        return redirect(url_for('main.home'))
+
+    return render_template('company_signup.html')
+
+@main.route('/admin/login', methods=['GET', 'POST'])
+def admin_login():
+    if request.method == 'POST':
+        email = request.form.get('email')
+        password = request.form.get('password')
+
+        user = User.query.filter_by(email=email).first()
+
+        if not user or not user.check_password(password):
+            flash("Invalid email or password.", "danger")
+            return redirect(url_for('main.admin_login'))
+
+        if not user.is_admin:
+            flash("You are not authorized to access the admin dashboard.", "danger")
+            return redirect(url_for('main.home'))
+
+        login_user(user)
+        return redirect(url_for('main.admin_dashboard'))
+
+    return render_template('admin_login.html')
+
+@main.route('/add-company', methods=['GET', 'POST'])
+@login_required
+def add_company():
+    if not current_user.is_admin:
+        abort(403)
+    # Logic for adding a company (e.g. form)
+    return render_template('add_company.html')

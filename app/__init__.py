@@ -28,11 +28,15 @@ def create_app():
     bcrypt.init_app(app)
     login_manager.init_app(app)
 
+
+
     # Initialize Flask-Migrate
     migrate = Migrate(app, db)
 
+
     from .company import company_bp
     app.register_blueprint(company_bp)
+
     # Register blueprints
     with app.app_context():
         from .auth import auth as auth_blueprint
@@ -43,7 +47,11 @@ def create_app():
 
         # from .company import company_bp
         # app.register_blueprint(company_bp)
-
+        from .admin_seed import create_admin
+        create_admin(app)
+        
         from . import models
 
+
     return app
+
