@@ -55,6 +55,7 @@ class Company(db.Model):
 
     status = db.Column(db.String(20), default='pending')  # 'pending' or 'approved'
     created_at = db.Column(db.DateTime, default=datetime.utcnow)
+    reviews = db.relationship('Review', backref='company', lazy=True)
 
     def set_password(self, password):
         self.password_hash = generate_password_hash(password)

@@ -8,5 +8,14 @@
       <input type="password" name="password" placeholder="Password" required>
       <button type="submit">Login</button>
     </form>
+    {% with messages = get_flashed_messages(with_categories=true) %}
+      {% if messages %}
+        <div class="mb-4">
+         {% for category, message in messages %}
+          <div class="alert alert-{{ category }}">{{ message }}</div>
+         {% endfor %}
+        </div>
+      {% endif %}
+    {% endwith %}
   </div>
 {% endblock %}

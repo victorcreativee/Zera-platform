@@ -115,15 +115,19 @@ def login_company():
         password = request.form.get('password')
 
         company = Company.query.filter_by(email=email).first()
+
         if not company or not company.check_password(password):
-            flash('Invalid email or password.')
+            flash('Invalid email or password.', 'danger')
+            return redirect(url_for('auth.login_company'))
+
+        if company.status != 'approved':
+            flash('⏳ Your registration is still pending approval by the admin.', 'warning')
             return redirect(url_for('auth.login_company'))
 
         session['company_id'] = company.id
         session['company_name'] = company.name
-        flash('Logged in successfully.')
+        flash('✅ Logged in successfully.', 'success')
         return redirect(url_for('company.company_dashboard'))
-
 
     return render_template('auth/login_company.html')
 
