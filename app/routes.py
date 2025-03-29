@@ -271,3 +271,39 @@ def add_company():
         return redirect(url_for('main.admin_dashboard'))
 
     return render_template('add_company.html')
+
+@main.route('/company/reviews')
+def company_reviews():
+    if 'company_id' not in session:
+        flash("Login as a company to access reviews.")
+        return redirect(url_for('auth.login_company'))
+
+    company_id = session['company_id']
+    products = Product.query.filter_by(company_id=company_id).all()
+    all_reviews = []
+
+    for product in products:
+        all_reviews.extend(product.reviews)
+
+    return render_template('company_reviews.html', reviews=all_reviews)
+
+@main.route('/company/rate_review/<int:review_id>', methods=['POST'])
+def rate_review(review_id):
+    if 'company_id' not in session:
+        flash("Unauthorized access.")
+        return redirect(url_for('auth.login_company'))
+
+    rating = int(request.form.get('rating'))
+    review = Review.query.get_or_404(review_id)
+    review.rating = rating
+
+    # Logic: map rating to points
+    rating_to_points = {1: 1, 2: 2, 3: 3, 4: 4, 5: 5}
+    review.points_awarded = rating_to_points.get(rating, 0)
+
+    db.session.commit()
+    flash("Review rated successfully.")
+    return redirect(url_for('company_reviews'))
+
+
+

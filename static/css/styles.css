@@ -1291,3 +1291,114 @@ ul {
 .review-card p strong {
     font-weight: bold;
 }
+
+
+/* == Company dashboard == */
+.company-dashboard-container {
+    padding: 40px;
+    background-color: #f9f9f9;
+  }
+  
+  .dashboard-title {
+    font-size: 2rem;
+    font-weight: bold;
+    margin-bottom: 20px;
+  }
+  
+  .dashboard-actions {
+    margin-bottom: 30px;
+  }
+  
+  .btn-primary {
+    background-color: #2563eb;
+    color: white;
+    padding: 10px 16px;
+    text-decoration: none;
+    border-radius: 6px;
+    font-weight: 500;
+  }
+  
+  .btn-primary:hover {
+    background-color: #1e40af;
+  }
+  
+  .section-heading {
+    font-size: 1.5rem;
+    margin-top: 20px;
+    margin-bottom: 16px;
+  }
+  
+  .product-grid {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+  }
+  
+  .product-card {
+    background: white;
+    border-radius: 8px;
+    padding: 20px;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+    width: 100%;
+    max-width: 500px;
+  }
+  
+  .product-name {
+    font-size: 1.2rem;
+    font-weight: bold;
+    margin-bottom: 10px;
+  }
+  
+  .product-description {
+    font-size: 0.95rem;
+    margin-bottom: 12px;
+  }
+  
+  .product-actions a {
+    margin-right: 10px;
+    text-decoration: none;
+  }
+  
+  .btn-secondary {
+    background-color: #f59e0b;
+    color: white;
+    padding: 6px 12px;
+    border-radius: 4px;
+  }
+  
+  .btn-secondary:hover {
+    background-color: #d97706;
+  }
+  
+  .btn-danger {
+    background-color: #ef4444;
+    color: white;
+    padding: 6px 12px;
+    border-radius: 4px;
+  }
+  
+  .btn-danger:hover {
+    background-color: #dc2626;
+  }
+  
+  .review-section {
+    margin-top: 15px;
+  }
+  
+  .review-list {
+    list-style-type: disc;
+    margin-left: 20px;
+    font-size: 0.9rem;
+  }
+  
+  .no-reviews {
+    color: #777;
+    font-size: 0.9rem;
+  }
+  
+  .empty-message {
+    font-size: 1rem;
+    color: #666;
+    margin-top: 20px;
+  }
+  

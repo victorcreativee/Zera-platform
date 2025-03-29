@@ -39,11 +39,15 @@ class Review(db.Model):
     product_id = db.Column(db.Integer, db.ForeignKey('product.id'))
     product = db.relationship('Product', backref=db.backref('reviews', lazy=True))
 
+    company_id = db.Column(db.Integer, db.ForeignKey('company.id'), nullable=False)
     likes = db.Column(db.Integer, default=0)
     views = db.Column(db.Integer, default=0)
 
     user_name = db.Column(db.String(100), nullable=False)
     user_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=True)
+
+    rating = db.Column(db.Integer, nullable=True)  # 1 to 5, rated by company
+    points_awarded = db.Column(db.Integer, default=0)  # Points calculated from rating
 
 class Company(db.Model):
     id = db.Column(db.Integer, primary_key=True)
