@@ -131,4 +131,8 @@ def login_company():
 
     return render_template('auth/login_company.html')
 
-
+@auth.route('/logout_company')
+def logout_company():
+    session.clear()
+    flash("Logged out successfully.")
+    return redirect(url_for('main.landing'))

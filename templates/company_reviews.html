@@ -1,11 +1,15 @@
 {% extends 'base.html' %}
 
 {% block content %}
-<div class="container mx-auto px-4 py-6">
-  <h2 class="text-xl font-bold mb-4">📊 Reviews Submitted</h2>
-
+<div class="company-reviews-container">
+  <h2 class="section-title">📊 Reviews Submitted</h2>
+  
+  <div class="dashboard-nav">
+    <a href="{{ url_for('company.company_dashboard') }}" class="back-button">⬅️ Back to Dashboard</a>
+  </div>
+  
   {% for review in reviews %}
-    <div class="bg-white p-4 shadow rounded mb-4">
+    <div class="review-card">
       <p><strong>Product:</strong> {{ review.product.name }}</p>
       <p><strong>User:</strong> {{ review.author.username }}</p>
       <p><strong>Feedback:</strong> {{ review.content }}</p>
@@ -13,7 +17,7 @@
       <p><strong>Points Awarded:</strong> {{ review.points_awarded }}</p>
 
       {% if review.rating is none %}
-      <form action="{{ url_for('rate_review', review_id=review.id) }}" method="POST" class="mt-2">
+      <form action="{{ url_for('main.rate_review', review_id=review.id) }}" method="POST" class="rating-form">
         <label for="rating">Rate this review:</label>
         <select name="rating" required>
           <option value="">Select Rating</option>
@@ -21,12 +25,12 @@
             <option value="{{ i }}">{{ i }} Star{{ 's' if i > 1 }}</option>
           {% endfor %}
         </select>
-        <button type="submit" class="bg-blue-600 text-white px-3 py-1 rounded ml-2">Rate</button>
+        <button type="submit" class="rate-button">✅ Submit Rating</button>
       </form>
       {% endif %}
     </div>
   {% else %}
-    <p>No reviews submitted yet.</p>
+    <p class="no-reviews-message">No reviews submitted yet.</p>
   {% endfor %}
 </div>
 {% endblock %}

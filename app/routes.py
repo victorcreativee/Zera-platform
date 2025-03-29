@@ -31,10 +31,13 @@ def landing():
 @main.route('/profile')
 @login_required
 def profile():
-    # current_user is guaranteed to be valid because of @login_required
     reviews = Review.query.filter_by(user_id=current_user.id).all()
     review_count = len(reviews)
-    return render_template('profile.html', reviews=reviews, review_count=review_count)
+
+    # ✅ Calculate total points earned
+    total_points = sum(review.points_awarded for review in reviews if review.points_awarded)
+
+    return render_template('profile.html', reviews=reviews, review_count=review_count, total_points=total_points)
 
 # User Dashboard
 @main.route('/dashboard')
@@ -303,7 +306,7 @@ def rate_review(review_id):
 
     db.session.commit()
     flash("Review rated successfully.")
-    return redirect(url_for('company_reviews'))
+    return redirect(url_for('main.company_reviews'))
 
 
 
