@@ -965,6 +965,21 @@ ul {
   .actions a:hover {
     text-decoration: underline;
   }
+  /* === Profile Summary Progress Bar === */
+/* .progress-bar {
+    width: 100%;
+    height: 20px;
+    background-color: #e5e7eb;
+    border-radius: 10px;
+    overflow: hidden;
+    margin-top: 8px;
+  }
+  
+  .progress-fill {
+    height: 100%;
+    background-color: #4caf50;
+    transition: width 0.5s ease-in-out;
+  } */
   
 
 /* === company signup   === */
@@ -1522,5 +1537,75 @@ ul {
   
   .btn-danger:hover {
     background-color: #c0392b;
+  }
+  
+  /* === Wallet Page === */
+.wallet-container {
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 30px 20px;
+  }
+  
+  .wallet-summary {
+    background-color: #f9f9f9;
+    padding: 20px;
+    border-left: 5px solid #2b6cb0;
+    border-radius: 6px;
+    margin-bottom: 25px;
+  }
+  
+  .wallet-note {
+    font-size: 14px;
+    color: #555;
+    margin-top: 10px;
+  }
+  
+  .wallet-review-list {
+    list-style: none;
+    padding-left: 0;
+  }
+  
+  .wallet-review-item {
+    background: #fff;
+    padding: 15px;
+    margin-bottom: 12px;
+    border-left: 4px solid #68d391;
+    border-radius: 4px;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+  }
+  
+  .wallet-links {
+    margin-top: 30px;
+  }
+  
+  .wallet-links .btn {
+    margin-right: 15px;
+  }
+  
+   .wallet-container {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 30px 20px;
+    background: #f9f9f9;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0,0,0,0.05);
+  }
+  
+  .wallet-summary p {
+    font-size: 18px;
+    margin-bottom: 10px;
+    font-weight: 600;
+  }
+  
+  .wallet-note {
+    background: #eef6ff;
+    padding: 15px;
+    margin-top: 20px;
+    border-left: 4px solid #3182ce;
+    border-radius: 6px;
+  }
+  
+  .wallet-note ul {
+    padding-left: 20px;
   }
   

@@ -21,7 +21,8 @@ class User(db.Model, UserMixin):
     bio = db.Column(db.Text, nullable=True)
     reviews = db.relationship('Review', backref='author', lazy=True)
     is_admin = db.Column(db.Boolean, default=False)
-    
+    # total_points = db.Column(db.Integer, default=0)
+
 
     # ✅ Password setter
     def set_password(self, password):

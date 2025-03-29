@@ -9,6 +9,7 @@ def create_admin(app):
         username = "victoradmin"
 
         existing_admin = User.query.filter_by(email=email).first()
+        
         if not existing_admin:
             admin = User(
                 username=username,

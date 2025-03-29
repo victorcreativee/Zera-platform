@@ -1,0 +1,37 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="wallet-container">
+  <h2>💰 My Wallet</h2>
+
+  <div class="wallet-summary">
+    <p><strong>Total Points Earned:</strong> {{ total_points }}</p>
+    <p><strong>Total Money Earned:</strong> ${{ total_money }}</p>
+    <p class="wallet-note">
+        💡 Earnings are based on the quality of your reviews. Each review is rated by the company:
+        <br>⭐ 1 Star = $1, ⭐⭐ 2 Stars = $2, ..., ⭐⭐⭐⭐⭐ 5 Stars = $5.
+        <br>💸 Payments are calculated monthly based on your total review ratings.
+    </p>
+  </div>
+
+  <h3>📋 Points Breakdown</h3>
+  {% if reviews %}
+  <ul class="wallet-review-list">
+    {% for review in reviews %}
+    <li class="wallet-review-item">
+      <strong>{{ review.product.name }}</strong><br>
+      Rating: {{ review.rating }} ⭐ | Points: {{ review.points_awarded }}<br>
+      <small>Submitted: {{ review.created_at.strftime('%b %d, %Y') }}</small>
+    </li>
+    {% endfor %}
+  </ul>
+  {% else %}
+    <p>You haven't earned any points yet.</p>
+  {% endif %}
+
+  <div class="wallet-links">
+    <a href="{{ url_for('main.user_dashboard') }}" class="btn">🔙 Back to Dashboard</a>
+    <a href="{{ url_for('auth.logout') }}" class="btn">🚪 Logout</a>
+  </div>
+</div>
+{% endblock %}

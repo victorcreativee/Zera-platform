@@ -47,6 +47,24 @@ def user_dashboard():
     products = Product.query.order_by(Product.created_at.desc()).all()
     return render_template('user_dashboard.html', products=products)
 
+@main.route('/wallet')
+@login_required
+def wallet():
+    reviews = Review.query.filter_by(user_id=current_user.id).all()
+
+    # Calculate points (from previous logic)
+    total_points = sum(r.points_awarded for r in reviews if r.points_awarded)
+
+    # New: Calculate money based on rating (1-5 stars)
+    total_money = sum(r.rating for r in reviews if r.rating)
+
+    return render_template(
+        'wallet.html',
+        reviews=reviews,
+        total_points=total_points,
+        total_money=total_money
+    )
+
 # About Page
 @main.route('/about')
 def about():
