@@ -1,11 +1,36 @@
 {% extends 'base.html' %}
-{% block title %}Edit Product{% endblock %}
+
 {% block content %}
-  <h2>Edit Product</h2>
+<div class="form-container">
+  <h2 class="form-title">✏️ Edit Product</h2>
+
   <form method="POST">
+    <label for="title">Product Title:</label>
     <input type="text" name="title" value="{{ product.title }}" required>
-    <textarea name="description" required>{{ product.description }}</textarea>
-    <input type="text" name="image_url" value="{{ product.image_url }}">
-    <button type="submit">Update</button>
+
+    <label for="description">Product Description:</label>
+    <textarea name="description" required rows="4">{{ product.description }}</textarea>
+
+    <label for="product_type">Product Type:</label>
+    <select name="product_type">
+      <option value="Physical" {% if product.product_type == 'Physical' %}selected{% endif %}>Physical</option>
+      <option value="Digital" {% if product.product_type == 'Digital' %}selected{% endif %}>Digital</option>
+    </select>
+
+    <label for="demo_link">Demo Link (if digital):</label>
+    <input type="text" name="demo_link" value="{{ product.demo_link or '' }}">
+
+    <label for="image_url">Main Image URL:</label>
+    <input type="text" name="image_url" value="{{ product.image_url or '' }}">
+
+    <label for="cover_image">Cover Image (for landing page):</label>
+    <input type="text" name="cover_image" value="{{ product.cover_image or '' }}">
+
+    <button type="submit" class="btn-primary mt-3">💾 Save Changes</button>
   </form>
+
+  <div class="mt-3">
+    <a href="{{ url_for('company.company_dashboard') }}" class="btn">🔙 Back to Dashboard</a>
+  </div>
+</div>
 {% endblock %}

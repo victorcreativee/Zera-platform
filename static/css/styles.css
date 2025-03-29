@@ -1450,6 +1450,15 @@ ul {
   .btn-sm:hover {
     background-color: #388e3c;
   }
+  .product-metrics {
+    background-color: #f9f9f9;
+    padding: 10px 15px;
+    border-radius: 6px;
+    margin-bottom: 12px;
+    font-size: 14px;
+    color: #333;
+  }
+  
   
   /* == Company Reviews == */
   .company-reviews-container {
@@ -1609,3 +1618,25 @@ ul {
     padding-left: 20px;
   }
   
+  .flash {
+    padding: 10px;
+    margin-bottom: 15px;
+    border-radius: 8px;
+    text-align: center;
+  }
+  .flash-success {
+    background-color: #e6ffed;
+    color: #10733f;
+    border: 1px solid #b4f2cb;
+  }
+  .flash-error {
+    background-color: #ffe6e6;
+    color: #a94442;
+    border: 1px solid #f5c6cb;
+  }
+  .btn-danger:hover {
+    background-color: #c82333;
+    transform: scale(1.05);
+    transition: all 0.2s ease-in-out;
+  }
+    

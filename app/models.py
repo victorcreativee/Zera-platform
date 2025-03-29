@@ -76,6 +76,8 @@ class Product(db.Model):
     image_url = db.Column(db.String(255))
     created_at = db.Column(db.DateTime, default=datetime.utcnow)
     company_id = db.Column(db.Integer, db.ForeignKey('company.id'))
+    cover_image = db.Column(db.String(255), nullable=True)
+    extra_images = db.Column(db.Text, nullable=True)
 
     company = db.relationship('Company', backref=db.backref('products', lazy=True))
 

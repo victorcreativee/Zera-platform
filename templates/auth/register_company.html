@@ -1,14 +1,21 @@
 {% extends 'base.html' %}
 {% block title %}Register Company{% endblock %}
+
 {% block content %}
-  <div class="form-container">
-    <h2>Register Your Company</h2>
+  <div class="form-container" style="max-width: 500px; margin: 3rem auto; padding: 2rem; background-color: #fff; border-radius: 8px; box-shadow: 0 4px 12px rgba(0,0,0,0.06);">
+    <h2 class="text-center mb-4">Register Your Company</h2>
+    
     <form method="POST" action="{{ url_for('auth.register_company') }}">
-      <input type="text" name="name" placeholder="Company Name" required>
-      <input type="email" name="email" placeholder="Email" required>
-      <input type="password" name="password" placeholder="Password" required>
-      <textarea name="description" placeholder="Short description (optional)"></textarea>
-      <button type="submit">Register</button>
+      <input type="text" name="name" placeholder="Company Name" class="form-control mb-3" required>
+      <input type="email" name="email" placeholder="Email" class="form-control mb-3" required>
+      <input type="password" name="password" placeholder="Password" class="form-control mb-3" required>
+      <textarea name="description" placeholder="Short description (optional)" class="form-control mb-3"></textarea>
+      <button type="submit" class="btn btn-primary w-100">Register</button>
     </form>
+
+    <div class="text-center mt-4">
+      <p class="mb-1">Already have a company account?</p>
+      <a href="{{ url_for('auth.login_company') }}" class="btn btn-outline-secondary">Login</a>
+    </div>
   </div>
 {% endblock %}

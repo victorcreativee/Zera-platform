@@ -1,14 +1,98 @@
 {% extends 'base.html' %}
 
+{% block styles %}
+  {{ super() }}
+  <style>
+    .choose-role-section {
+      padding: 4rem 0;
+      background-color: #f8f9fa;
+    }
+
+    .choose-role-section .section-title,
+    .choose-role-section p {
+      text-align: center;
+    }
+
+    .role-options {
+      display: flex;
+      justify-content: center;
+      gap: 2rem;
+      margin-top: 3rem;
+      flex-wrap: wrap;
+    }
+
+    .role-card {
+      background: white;
+      border-radius: 1rem;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.06);
+      padding: 2rem;
+      width: 280px;
+      transition: transform 0.2s ease, box-shadow 0.3s ease;
+      text-align: center;
+    }
+
+    .role-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+    }
+
+    .role-card h3 {
+      font-size: 1.5rem;
+      margin-bottom: 1rem;
+      color: #333;
+    }
+
+    .role-card p {
+      font-size: 1rem;
+      color: #666;
+      margin-bottom: 1.5rem;
+    }
+
+    .role-card .btn {
+      padding: 0.6rem 1.5rem;
+      border-radius: 50px;
+      font-weight: 500;
+      width: 100%;
+    }
+
+    .btn-individual {
+      background-color: #007bff;
+      color: white;
+    }
+
+    .btn-individual:hover {
+      background-color: #0056b3;
+    }
+
+    .btn-company {
+      background-color: #007bff;
+      color: white;
+    }
+
+    .btn-company:hover {
+      background-color: #0056b3;
+    }
+  </style>
+{% endblock %}
+
 {% block content %}
-  <section class="choose-role-section text-center">
+  <section class="choose-role-section">
     <div class="container">
       <h2 class="section-title">Choose Your Role</h2>
-      <p>Select whether you want to sign up as an individual or a company.</p>
+      <p class="text-muted">Select whether you want to sign up as an individual or a company.</p>
 
       <div class="role-options">
-        <a href="{{ url_for('auth.register') }}" class="btn role-btn">Individual</a>
-        <a href="{{ url_for('auth.register_company') }}" class="btn role-btn">Company</a>
+        <div class="role-card">
+          <h3>Individual</h3>
+          <p>Join ZERA to review products and earn rewards based on your insights.</p>
+          <a href="{{ url_for('auth.register') }}" class="btn btn-individual">Sign up as Individual</a>
+        </div>
+
+        <div class="role-card">
+          <h3>Company</h3>
+          <p>Connect with real users, get honest feedback, and improve your products.</p>
+          <a href="{{ url_for('auth.register_company') }}" class="btn btn-company">Sign up as Company</a>
+        </div>
       </div>
     </div>
   </section>

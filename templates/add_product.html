@@ -1,13 +1,36 @@
 {% extends 'base.html' %}
-{% block title %}Add Product{% endblock %}
+
 {% block content %}
-  <div class="form-container">
-    <h2>Add New Product</h2>
-    <form method="POST">
-      <input type="text" name="title" placeholder="Product Title" required>
-      <textarea name="description" placeholder="Product Description" required></textarea>
-      <input type="text" name="image_url" placeholder="Image URL (optional)">
-      <button type="submit">Submit Product</button>
-    </form>
+<div class="form-container">
+  <h2 class="form-title">➕ Add New Product</h2>
+
+  <form method="POST">
+    <label for="title">Product Title:</label>
+    <input type="text" name="title" required>
+
+    <label for="description">Product Description:</label>
+    <textarea name="description" required rows="4"></textarea>
+
+    <label for="product_type">Product Type:</label>
+    <select name="product_type" required>
+      <option value="Physical">Physical</option>
+      <option value="Digital">Digital</option>
+    </select>
+
+    <label for="demo_link">Demo Link (if digital):</label>
+    <input type="text" name="demo_link" placeholder="https://demo.com/preview">
+
+    <label for="image_url">Main Image URL:</label>
+    <input type="text" name="image_url" placeholder="/static/images/product1.jpg">
+
+    <label for="cover_image">Cover Image (for landing page):</label>
+    <input type="text" name="cover_image" placeholder="/static/images/product1.jpg">
+
+    <button type="submit" class="btn-primary mt-3">✅ Submit Product</button>
+  </form>
+
+  <div class="mt-3">
+    <a href="{{ url_for('company.company_dashboard') }}" class="btn">🔙 Back to Dashboard</a>
   </div>
+</div>
 {% endblock %}
