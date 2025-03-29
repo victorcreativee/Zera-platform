@@ -155,6 +155,7 @@ def product_detail(product_id):
             title=title,
             content=content,
             product_id=product.id,
+            company_id=product.company_id,
             user_name=user_name,  # Set user_name here
             user_id=current_user.id if current_user.is_authenticated else None,
             created_at=datetime.now()
