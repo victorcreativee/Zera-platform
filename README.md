@@ -1,48 +1,78 @@
-## ZERA Platform
+# 🌟 ZERA Platform
 
-## Overview
-The **ZERA Platform** is a web application designed to connect companies seeking product feedback with students and individuals who can earn by providing honest reviews. The platform emphasizes data security, fair compensation, and effective collaboration between users and companies.
+The **ZERA Platform** is a web-based product review ecosystem that connects companies seeking authentic product feedback with students and individuals who earn rewards for sharing thoughtful, structured reviews. The platform emphasizes data security, transparency, and fair compensation — bridging the gap between innovation and user experience.
 
-## Features
-- **User Authentication** using JWT for secure login and registration
-- **Product Submission System** for companies to submit products for review
-- **Review Management System** for structured and verified feedback
-- **Secure Payments** via Stripe or PayPal (planned)
-- **Admin Dashboard** for enhanced control and oversight
+---
 
-## Technology Stack
+## 📌 Table of Contents
+- [Live Demo](#live-demo)
+- [Overview](#overview)
+- [Features](#features)
+- [Technology Stack](#technology-stack)
+- [Setup Instructions](#setup-instructions)
+- [Usage](#usage)
+- [Current Status](#current-status)
+- [Contributors](#contributors)
+- [Related Projects](#related-projects)
+- [License](#license)
+- [Resources](#resources)
+
+---
+
+## 🌐 Live Demo
+
+🔗 [Deployed Site](https://victorcreativee.github.io/zera-landing-page/)
+
+📖 [Final Project Blog Article](https://www.linkedin.com/pulse/building-zera-student-powered-product-review-victor-tuyizere-ym9of)
+
+👤 [LinkedIn - Victor Tuyizere](https://www.linkedin.com/pulse/building-zera-student-powered-product-review-victor-tuyizere-ym9of)
+
+---
+
+## 📸 Screenshot
+
+![ZERA Platform Screenshot](static/images/landingpagezera.png)
+
+> _Landing page showcasing trending products and user interaction._
+
+---
+
+## 🧠 Overview
+
+The **ZERA Platform** is a web application designed to connect companies seeking product feedback with students and individuals who can earn by providing honest reviews. It enables:
+- Companies to post products and gather actionable feedback.
+- Users to test products and earn money based on review quality.
+- Admins to manage companies and platform activities.
+
+---
+
+## ✨ Features
+
+- 🔐 **JWT Authentication** for secure login and role-based access
+- 📦 **Product Submission System** for companies
+- 📝 **Review Submission & Management** with real-time rating
+- 💰 **Wallet Page** displaying points and earnings
+- 💳 **Secure Payments** via Stripe or PayPal *(planned)*
+- 🧑‍💼 **Admin Dashboard** for approving companies and managing reviews
+- 🌐 **Public Landing Page** with trending product highlights
+- 🌟 **User Profile Pages** with stats and review history
+
+---
+
+## 🧰 Technology Stack
+
 - **Backend:** Flask (Python)
-- **Frontend:** HTML, CSS, JavaScript
-- **Database:** PostgreSQL / MySQL
+- **Frontend:** HTML, CSS, Bootstrap, JavaScript
+- **Database:** SQLite (dev), PostgreSQL / MySQL (prod-ready)
+- **Version Control:** Git & GitHub
+- **Deployment:** GitHub Pages (for landing) or Vercel/Render *(optional)*
 
-## Setup Instructions
-1. **Clone the repository:**
-   ```bash
-   git clone [repository_link]
-   cd zera-platform
-   ```
-2. **Create a virtual environment and install dependencies:**
-   ```bash
-   python -m venv venv
-   source venv/bin/activate   # For Windows use: .\venv\Scripts\activate
-   pip install -r requirements.txt
-   ```
-3. **Run the Flask application:**
-   ```bash
-   flask run
-   ```
-4. **Access the app:**
-   Open [http://localhost:5000](http://localhost:5000) in your browser.
+---
 
-## Current Status
-- Core frontend pages designed
-- Authentication system in progress
-- JavaScript enhancements for interactive UI planned
+## ⚙️ Setup Instructions
 
-## Contributors
-- **Victor Tuyizere** (Lead Developer)
-
-
-## License
-This project is licensed under the ALX.
+### 1. Clone the Repository
+```bash
+git clone https://github.com/victorcreativee/Zera-platform.git
+cd Zera-platform
 
